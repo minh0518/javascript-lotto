@@ -105,7 +105,7 @@ class App {
     ) {
       throw new Error(ERROR.NUMBER_IN_RANGE);
     }
-  }
+  } 
 
   askWinBonus() {
     Console.print('');
