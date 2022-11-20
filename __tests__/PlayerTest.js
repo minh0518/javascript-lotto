@@ -8,9 +8,12 @@ describe('Player 클래스 테스트', () => {
 
     expect(() => {
       player.buyLottos(100);
+      //1000원 단위 ,1000원 이하까지 동시에 예외처리하기 위해 100을 넣음
     }).toThrow('[ERROR]');
   });
 
+
+  //각 기능에 대해서도 단위테스트
   test('player에게 당첨 횟수를 추가한다.', () => {
     const player = new Player();
 
