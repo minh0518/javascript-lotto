@@ -1,67 +1,42 @@
-const { Console } = require('@woowacourse/mission-utils')
+const { ERROR } = require('./constants/message');
+const SETTING = require('./constants/setting');
 
 class Lotto {
-  #numbers
+  #numbers;
 
   constructor(numbers) {
-    this.validate(numbers)
-    this.#numbers = numbers
+    this.validate(numbers);
+    this.#numbers = numbers;
   }
 
   validate(numbers) {
-    this.validateForNumLength(numbers)
+    if (numbers.length !== SETTING.NUMBER_COUNT) {
+      throw new Error(ERROR.NUMBER_COUNT);
+    }
 
-    this.validateForDuplication(numbers)
+    if (numbers.length !== new Set(numbers).size) {
+      throw new Error(ERROR.NO_DUPLICATE);
+    }
 
-    this.validateForNumRange(numbers)
-
-    this.validateForNotNumber(numbers)
-  }
-
-  validateForNumLength(numbers) {
-    if (numbers.length !== 6) {
-      throw new Error('[ERROR] 로또 번호는 6개여야 합니다.')
+    if (Math.min(...numbers) < SETTING.MIN_NUMBER || Math.max(...numbers) > SETTING.MAX_NUMBER) {
+      throw new Error(ERROR.NUMBER_IN_RANGE);
     }
   }
 
-  validateForDuplication(numbers) {
-    
-    // 숫자가 아닌 값이 들어오면 set로직이 이상해지므로 여기서 미리 체크
-    this.validateForNotNumber(numbers)
-
-    const set = new Set(numbers)
-    if (numbers.length !== set.size) {
-      throw new Error('[ERROR] 로또 번호는 중복된 숫자가 없어야 합니다.')
-    }
+  getNumbers() {
+    return this.#numbers;
   }
 
-  validateForNumRange(numbers) {
-    let min = Math.min(...numbers)
-    let max = Math.max(...numbers)
+  getMatchCount(winNumbers) {
+    const winNumberSet = new Set(winNumbers);
+    const matchNumbers = this.#numbers.filter((number) => winNumberSet.has(number));
 
-    if (min < 1 || max > 45) {
-      throw new Error('[ERROR] 로또 번호는 1에서 45사이의 숫자여야 합니다')
-    }
+    return matchNumbers.length;
   }
 
-  validateForNotNumber(numbers) {
-    numbers.map((i) => {
-      if (isNaN(i)) {
-        throw new Error('[ERROR] 로또 번호는 숫자로 이뤄진 값이어야 합니다.')
-      }
-    })
+  hasWinBonus(winBonus) {
+    return this.#numbers.includes(winBonus);
   }
-
-  resultPrint(){
-
-    // 출력 형식에 맞추기 위해 문자열 처리
-    Console.print(`[${String(this.#numbers).split(',').join(', ')}]`)
-  }
-
-  showLottoNum(){
-    return this.#numbers
-  }
-
 }
 
-module.exports = Lotto
+module.exports = Lotto;
