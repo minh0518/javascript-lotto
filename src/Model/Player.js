@@ -1,4 +1,4 @@
-const Machine = require('./Machine');
+const LottoGenerator = require('./LottoGenerator');
 
 const { PRIZE } = require('../constants/prize');
 const { ERROR } = require('../constants/message');
@@ -25,13 +25,13 @@ class Player {
 
     this.spentMoney = money;
 
-    //this.lottos에다가 배열을 생성하는데 각 요소에다가 Machine.publishLotto()를 통해
+    //this.lottos에다가 배열을 생성하는데 각 요소에다가 LottoGenerator.publishLotto()를 통해
     //pickUniqueNumbersInRange로 lottoCount만큼 내가 선택한 로또 번호들을 넣어준다
-    //즉, Machine.publishLotto()의 리턴값이 new Lotto(numbers); 이므로
+    //즉, LottoGenerator.publishLotto()의 리턴값이 new Lotto(numbers); 이므로
     //이제 각 this.lottos들은 Lotto객체가 된다
 
     for (let i = 0; i < lottoCount; i++) {
-      this.lottos.push(Machine.publishLotto());
+      this.lottos.push(LottoGenerator.publishLotto());
     }
     console.log(this.lottos);
     // [ Lotto {}, .. ] 의 Lotto {}는 Lotto객체를 의미한다

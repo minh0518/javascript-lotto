@@ -1,6 +1,6 @@
 const { Console } = require('@woowacourse/mission-utils');
 const Player = require('../Model/Player');
-const Machine = require('../Model/Machine');
+const LottoGenerator = require('../Model/LottoGenerator');
 const Message = require('../View/Message');
 const { PRIZE, WIN_MONEY } = require('../constants/prize');
 const { ASK, ERROR, ALERT } = require('../constants/message');
@@ -64,10 +64,6 @@ class LottoGame {
     Console.print(ASK.WIN_NUMBERS);
     Console.readLine('', (input) => {
       
-      // const whiteSpaceRegExp = new RegExp(/\s/, 'g');
-      // const whiteSpaceRemoved = input.replace(whiteSpaceRegExp, '');
-      // const winNumbers = whiteSpaceRemoved.split(',').map(Number);
-    
       const winNumbers=input.split(',').map(Number)
 
       this.validateWinNumbers(winNumbers);
@@ -129,7 +125,7 @@ class LottoGame {
   calculateResult() {
     this.player.lottos.forEach((lotto) => {
       const matchCount = lotto.getMatchCount(this.winNumbers);
-      const prize = Machine.judgePrize(lotto, matchCount, this.winBonus);
+      const prize = LottoGenerator.judgePrize(lotto, matchCount, this.winBonus);
 
       if (prize !== PRIZE.LOST) {
         this.player.addPrizeCounts(prize);
@@ -145,26 +141,10 @@ class LottoGame {
     Console.print(ALERT.STATISTICS_PREFIX);
     Console.print('---');
 
-    this.printResult();
-    this.printProfitRate();
-
     this.endGame();
   }
 
-  printResult() {
-    this.player.prizeCounts.forEach((prizeCount, prize) => {
-      const resultMessage = Message.getResultMessage(prize, prizeCount);
 
-      Console.print(resultMessage);
-    });
-  }
-
-  printProfitRate() {
-    const profitRate = this.player.getProfitRate();
-    const profitRateMessage = Message.getProfitRateMessage(profitRate);
-
-    Console.print(profitRateMessage);
-  }
 
   endGame() {
     Console.close();

@@ -1,10 +1,10 @@
 const { Random } = require('@woowacourse/mission-utils');
-const Lotto = require('../Model/Lotto');
+const Lotto = require('./Lotto');
 
 const { PRIZE } = require('../constants/prize');
 const SETTING = require('../constants/setting');
 
-class Machine {
+class LottoGenerator {
   static publishLotto() {
     const { MIN_NUMBER, MAX_NUMBER, NUMBER_COUNT } = SETTING;
     const numbers = Random.pickUniqueNumbersInRange(MIN_NUMBER, MAX_NUMBER, NUMBER_COUNT);
@@ -30,4 +30,4 @@ class Machine {
   }
 }
 
-module.exports = Machine;
+module.exports = LottoGenerator;
