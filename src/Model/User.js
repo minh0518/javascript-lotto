@@ -15,6 +15,7 @@ class User {
       [PRIZE.THIRD, 0],
       [PRIZE.SECOND, 0],
       [PRIZE.FIRST, 0],
+      //등수 , 갯수
     ]);
   }
 
@@ -23,21 +24,9 @@ class User {
 
     const lottoCount = money / SETTING.LOTTO_PRICE;
 
-    this.spentMoney = money;
-
-    //this.lottos에다가 배열을 생성하는데 각 요소에다가 LottoGenerator.publishLotto()를 통해
-    //pickUniqueNumbersInRange로 lottoCount만큼 내가 선택한 로또 번호들을 넣어준다
-    //즉, LottoGenerator.publishLotto()의 리턴값이 new Lotto(numbers); 이므로
-    //이제 각 this.lottos들은 Lotto객체가 된다
-
     for (let i = 0; i < lottoCount; i++) {
       this.lottos.push(LottoGenerator.publishLotto());
     }
-    console.log(this.lottos);
-    // [ Lotto {}, .. ] 의 Lotto {}는 Lotto객체를 의미한다
-
-    //Lotto객체의 #numbers에 접근하는 방법을
-    //new Lotto클래스 자체를 직접 받고, 여기에서 getter메소드를 통해 받는 것이다
   }
 
   //1000원 단위 ,1000원 이하까지도 예외처리
@@ -52,8 +41,10 @@ class User {
   }
 
   addPrizeCounts(prize) {
+    // [PRIZE.FIFTH, 0] 의 0 을 가져옴
     const prizeCount = this.prizeCounts.get(prize);
 
+    // +1한 값을 map에 있는 해당 prize에 업데이트
     this.prizeCounts.set(prize, prizeCount + 1);
   }
 

@@ -18,7 +18,10 @@ class Lotto {
       throw new Error(ERROR.NO_DUPLICATE);
     }
 
-    if (Math.min(...numbers) < SETTING.MIN_NUMBER || Math.max(...numbers) > SETTING.MAX_NUMBER) {
+    if (
+      Math.min(...numbers) < SETTING.MIN_NUMBER ||
+      Math.max(...numbers) > SETTING.MAX_NUMBER
+    ) {
       throw new Error(ERROR.NUMBER_IN_RANGE);
     }
   }
@@ -28,12 +31,10 @@ class Lotto {
   }
 
   getMatchCount(winNumbers) {
-    const result=this.#numbers.filter((i)=>{
-      return winNumbers.includes(i)
-    })
-    return result.length
-
-    
+    const result = this.#numbers.filter((i) => {
+      return winNumbers.includes(i);
+    });
+    return result.length;
   }
 
   hasWinBonus(winBonus) {

@@ -14,7 +14,7 @@ const ASK = Object.freeze({
   });
   
   const ALERT = Object.freeze({
-    STATISTICS_PREFIX: '당첨 통계',
+    RESULT: '당첨 통계',
   });
   
   module.exports = { ASK, ERROR, ALERT };

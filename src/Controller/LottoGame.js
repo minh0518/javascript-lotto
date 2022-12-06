@@ -8,7 +8,7 @@ const SETTING = require('../constants/setting');
 
 class LottoGame {
   constructor() {
-    this.player = new User();
+    this.user = new User();
     this.winNumbers = [];
     this.winBonus = null;
   }
@@ -18,10 +18,7 @@ class LottoGame {
 
     Console.readLine('', (input) => {
       const money = Number(input);
-
-      //로또구입금액 받으면 new User에 있는 buyLottos에 넣어줌
-      this.player.buyLottos(money);
-
+      this.user.buyLottos(money);
       this.printUserLottos();
     });
   }
@@ -33,9 +30,7 @@ class LottoGame {
   }
 
   printLottoCount() {
-    //위의 this.player.buyLottos(money)로 인해서 생성된
-    //각 요소가 new Lotto(numbers)인 this.player.lottos를 통해 출력
-    const lottos = this.player.lottos;
+    const lottos = this.user.lottos;
     const lottoCount = lottos.length;
     const lottoCountMessage = Message.getLottoCountMessage(lottoCount);
 
@@ -43,28 +38,19 @@ class LottoGame {
   }
 
   printLottos() {
-    //위의 this.player.buyLottos(money)로 인해서 생성된
-    //각 요소가 new Lotto(numbers)인  this.player.lottos를 통해 출력
-    const lottos = this.player.lottos;
+    const lottos = this.user.lottos;
 
     lottos.forEach((lotto) => {
-      const numbers = lotto.getNumbers(); //new Lotto의 getNumbers()사용
+      const numbers = lotto.getNumbers();
       const lottoMessage = Message.getLottoNumbersMessage(numbers);
-      //lottos는 구입한 횟수만큼 new Lotto()객체가 담겨있다
-      //그러므로 각 new Lotto()객체의getNumbers()를 써서 #numbers를 받고
-      //그것들을 출력하는 것이다
       Console.print(lottoMessage);
     });
   }
 
-  //당첨번호 받기
-  //여기서 당첨번호는 this.winNumbers에 ,
-  //보너스 번호는 this.winBonus에 넣는다
   askWinNumbers() {
     Console.print(ASK.WIN_NUMBERS);
     Console.readLine('', (input) => {
-      
-      const winNumbers=input.split(',').map(Number)
+      const winNumbers = input.split(',').map(Number);
 
       this.validateWinNumbers(winNumbers);
 
@@ -73,7 +59,7 @@ class LottoGame {
       this.askWinBonus();
     });
   }
-  
+
   askWinBonus() {
     Console.print(ASK.WIN_BONUS);
     Console.readLine('', (input) => {
@@ -107,7 +93,6 @@ class LottoGame {
     }
   }
 
-
   validateWinBonus(bonus) {
     if (!Number.isInteger(bonus)) {
       throw new Error(ERROR.ONLY_NUMBER);
@@ -123,13 +108,14 @@ class LottoGame {
   }
 
   calculateResult() {
-    this.player.lottos.forEach((lotto) => {
+    this.user.lottos.forEach((lotto) => {
       const matchCount = lotto.getMatchCount(this.winNumbers);
       const prize = LottoGenerator.judgePrize(lotto, matchCount, this.winBonus);
 
       if (prize !== PRIZE.LOST) {
-        this.player.addPrizeCounts(prize);
-        this.player.addWinMoney(WIN_MONEY[prize]);
+        //당첨금액이 존재한다면
+        this.user.addPrizeCounts(prize);
+        this.user.addWinMoney(WIN_MONEY[prize]);
       }
     });
 
@@ -137,8 +123,7 @@ class LottoGame {
   }
 
   printStatistics() {
-    
-    Console.print(ALERT.STATISTICS_PREFIX);
+    Console.print(ALERT.RESULT);
     Console.print('---');
 
     this.endGame();

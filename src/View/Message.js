@@ -9,6 +9,7 @@ class Message {
     return `[${numbers.join(', ')}]`;
   }
 
+
   static getProfitRateMessage(profitRate) {
     return `총 수익률은 ${profitRate}입니다.`;
   }
