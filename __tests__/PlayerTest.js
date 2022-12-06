@@ -1,10 +1,10 @@
-const Player = require('../src/Model/Player');
+const User = require('../src/Model/User');
 
 const { PRIZE } = require('../src/constants/prize');
 
-describe('Player 클래스 테스트', () => {
+describe('User 클래스 테스트', () => {
   test('1000원 단위의 금액만 살 수 있다.', () => {
-    const player = new Player();
+    const player = new User();
 
     expect(() => {
       player.buyLottos(100);
@@ -15,7 +15,7 @@ describe('Player 클래스 테스트', () => {
 
   //각 기능에 대해서도 단위테스트
   test('player에게 당첨 횟수를 추가한다.', () => {
-    const player = new Player();
+    const player = new User();
 
     for (let count = 0; count < 5; count += 1) {
       player.addPrizeCounts(PRIZE.FOURTH);
@@ -25,7 +25,7 @@ describe('Player 클래스 테스트', () => {
   });
 
   test('player에게 당첨 금액을 추가한다.', () => {
-    const player = new Player();
+    const player = new User();
     const winMoney = 15612;
 
     player.addWinMoney(winMoney);
@@ -34,7 +34,7 @@ describe('Player 클래스 테스트', () => {
   });
 
   test('player의 수익률을 반환한다.', () => {
-    const player = new Player();
+    const player = new User();
 
     player.buyLottos(90000);
     player.addWinMoney(60000);

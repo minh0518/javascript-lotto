@@ -4,7 +4,7 @@ const { PRIZE } = require('../constants/prize');
 const { ERROR } = require('../constants/message');
 const SETTING = require('../constants/setting');
 
-class Player {
+class User {
   constructor() {
     this.spentMoney = 0;
     this.lottos = [];
@@ -66,4 +66,4 @@ class Player {
   }
 }
 
-module.exports = Player;
+module.exports = User;

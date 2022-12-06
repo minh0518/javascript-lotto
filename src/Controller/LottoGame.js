@@ -1,5 +1,5 @@
 const { Console } = require('@woowacourse/mission-utils');
-const Player = require('../Model/Player');
+const User = require('../Model/User');
 const LottoGenerator = require('../Model/LottoGenerator');
 const Message = require('../View/Message');
 const { PRIZE, WIN_MONEY } = require('../constants/prize');
@@ -8,7 +8,7 @@ const SETTING = require('../constants/setting');
 
 class LottoGame {
   constructor() {
-    this.player = new Player();
+    this.player = new User();
     this.winNumbers = [];
     this.winBonus = null;
   }
@@ -19,14 +19,14 @@ class LottoGame {
     Console.readLine('', (input) => {
       const money = Number(input);
 
-      //로또구입금액 받으면 new Player에 있는 buyLottos에 넣어줌
+      //로또구입금액 받으면 new User에 있는 buyLottos에 넣어줌
       this.player.buyLottos(money);
 
-      this.printPlayerLottos();
+      this.printUserLottos();
     });
   }
 
-  printPlayerLottos() {
+  printUserLottos() {
     this.printLottoCount();
     this.printLottos();
     this.askWinNumbers();
@@ -143,8 +143,6 @@ class LottoGame {
 
     this.endGame();
   }
-
-
 
   endGame() {
     Console.close();
