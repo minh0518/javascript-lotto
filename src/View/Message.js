@@ -1,4 +1,4 @@
-const { PRIZE, WIN_MONEY } = require('./constants/prize');
+const { PRIZE, WIN_MONEY } = require('../constants/prize');
 
 class Message {
   static getLottoCountMessage(lottoCount) {
@@ -22,6 +22,7 @@ class Message {
   }
 
   static #getMatchCountMessage(prize) {
+    console.log(prize)
     const matchCount = prize > PRIZE.SECOND ? 8 - prize : 7 - prize;
 
     return `${matchCount}개 일치`;

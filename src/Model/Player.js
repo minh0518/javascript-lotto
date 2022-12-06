@@ -1,8 +1,8 @@
 const Machine = require('./Machine');
 
-const { PRIZE } = require('./constants/prize');
-const { ERROR } = require('./constants/message');
-const SETTING = require('./constants/setting');
+const { PRIZE } = require('../constants/prize');
+const { ERROR } = require('../constants/message');
+const SETTING = require('../constants/setting');
 
 class Player {
   constructor() {
@@ -29,17 +29,15 @@ class Player {
     //pickUniqueNumbersInRange로 lottoCount만큼 내가 선택한 로또 번호들을 넣어준다
     //즉, Machine.publishLotto()의 리턴값이 new Lotto(numbers); 이므로
     //이제 각 this.lottos들은 Lotto객체가 된다
-    this.lottos = Array.from({ length: lottoCount }, () => Machine.publishLotto());
-    console.log(this.lottos)
+
+    for (let i = 0; i < lottoCount; i++) {
+      this.lottos.push(Machine.publishLotto());
+    }
+    console.log(this.lottos);
     // [ Lotto {}, .. ] 의 Lotto {}는 Lotto객체를 의미한다
-
-
-
 
     //Lotto객체의 #numbers에 접근하는 방법을
     //new Lotto클래스 자체를 직접 받고, 여기에서 getter메소드를 통해 받는 것이다
-
-
   }
 
   //1000원 단위 ,1000원 이하까지도 예외처리
@@ -64,10 +62,7 @@ class Player {
   }
 
   getProfitRate() {
-    const profitRate = this.winMoney / this.spentMoney;
-    const localeOption = { style: 'percent', minimumFractionDigits: 1 };
-
-    return profitRate.toLocaleString('ko-KR', localeOption);
+    return `${((this.winMoney / this.spentMoney) * 100).toFixed(1)}%`;
   }
 }
 

@@ -1,4 +1,4 @@
-const Player = require('../src/Player');
+const Player = require('../src/Model/Player');
 
 const { PRIZE } = require('../src/constants/prize');
 

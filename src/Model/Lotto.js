@@ -1,5 +1,5 @@
-const { ERROR } = require('./constants/message');
-const SETTING = require('./constants/setting');
+const { ERROR } = require('../constants/message');
+const SETTING = require('../constants/setting');
 
 class Lotto {
   #numbers;
@@ -28,10 +28,12 @@ class Lotto {
   }
 
   getMatchCount(winNumbers) {
-    const winNumberSet = new Set(winNumbers);
-    const matchNumbers = this.#numbers.filter((number) => winNumberSet.has(number));
+    const result=this.#numbers.filter((i)=>{
+      return winNumbers.includes(i)
+    })
+    return result.length
 
-    return matchNumbers.length;
+    
   }
 
   hasWinBonus(winBonus) {

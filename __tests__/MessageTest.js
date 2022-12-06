@@ -1,4 +1,4 @@
-const Message = require('../src/Message');
+const Message = require('../src/View/Message');
 
 const { PRIZE, WIN_MONEY } = require('../src/constants/prize');
 

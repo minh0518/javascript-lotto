@@ -1,8 +1,8 @@
 const { Random } = require('@woowacourse/mission-utils');
-const Lotto = require('./Lotto');
+const Lotto = require('../Model/Lotto');
 
-const { PRIZE } = require('./constants/prize');
-const SETTING = require('./constants/setting');
+const { PRIZE } = require('../constants/prize');
+const SETTING = require('../constants/setting');
 
 class Machine {
   static publishLotto() {

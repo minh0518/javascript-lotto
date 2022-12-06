@@ -1,5 +1,5 @@
-const Machine = require('../src/Machine');
-const Lotto = require('../src/Lotto');
+const Machine = require('../src/Model/Machine');
+const Lotto = require('../src/Model/Lotto');
 
 const { PRIZE } = require('../src/constants/prize');
 
