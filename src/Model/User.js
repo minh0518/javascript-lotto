@@ -41,10 +41,8 @@ class User {
   }
 
   addPrizeCounts(prize) {
-    // [PRIZE.FIFTH, 0] 의 0 을 가져옴
     const prizeCount = this.prizeCounts.get(prize);
 
-    // +1한 값을 map에 있는 해당 prize에 업데이트
     this.prizeCounts.set(prize, prizeCount + 1);
   }
 

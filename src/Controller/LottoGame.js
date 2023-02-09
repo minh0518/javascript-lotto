@@ -27,6 +27,8 @@ class LottoGame {
     this.printLottoCount();
     this.printLottos();
     this.askWinNumbers();
+    this.askWinBonus();
+    this.calculateResult();
   }
 
   printLottoCount() {
@@ -55,8 +57,6 @@ class LottoGame {
       this.validateWinNumbers(winNumbers);
 
       this.winNumbers = winNumbers;
-
-      this.askWinBonus();
     });
   }
 
@@ -68,7 +68,6 @@ class LottoGame {
 
       this.winBonus = winBonus;
 
-      this.calculateResult();
     });
   }
 
@@ -119,10 +118,10 @@ class LottoGame {
       }
     });
 
-    this.printStatistics();
+    this.printResult();
   }
 
-  printStatistics() {
+  printResult() {
     Console.print(ALERT.RESULT);
     Console.print('---');
 
